@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель ВМФ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Делаем форму полупрозрачной и стильной на фоне флага */
+        form { 
+            background: rgba(255, 255, 255, 0.92); 
+            padding: 40px; 
+            border-radius: 20px; 
+            max-width: 500px; 
+            margin: 50px auto; 
+            box-shadow: 0 15px 35px rgba(0, 32, 91, 0.3);
+            border: 3px solid var(--navy-blue);
+            backdrop-filter: blur(5px);
+        }
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 12px 0; 
+            box-sizing: border-box;
+            border: 2px solid #CBD5E1;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 14px;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--navy-blue);
+            outline: none;
+        }
+        form h2 {
+            color: var(--dark-blue);
+            font-weight: 800;
+            text-align: center;
+            margin-top: 0;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<!-- Добавили класс andreev-bg для заднего фона -->
+<body class="andreev-bg">
+    <header>
+        <div class="container header-container">
+            <div class="logo">⚓ ВМФ ТОРГ (АДМИН)</div>
+            <nav><a href="/">На главную</a></nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <form id="add-product-form">
+            <h2>Добавить новый товар</h2>
+            <input type="text" id="name" placeholder="Название товара" required>
+            <select id="category">
+                <option value="telyashka">Тельняшка</option>
+                <option value="beret">Берет</option>
+                <option value="accessories">Аксессуары</option>
+            </select>
+            <input type="number" id="price" placeholder="Цена (руб.)" required>
+            <input type="text" id="image" placeholder="Путь к картинке (например: /images/beret.jpg)">
+            <textarea id="description" placeholder="Описание товара"></textarea>
+            <button type="submit" class="btn">Добавить на склад</button>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('add-product-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const product = {
+                name: document.getElementById('name').value,
+                category: document.getElementById('category').value,
+                price: document.getElementById('price').value,
+                image: document.getElementById('image').value || '/images/telyashka_winter.jpg',
+                description: document.getElementById('description').value
+            };
+
+            fetch('/api/products', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(product)
+            })
+            .then(res => {
+                if(res.ok) {
+                    alert('Товар успешно добавлен!');
+                    window.location.href = '/';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,308 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
+
+:root {
+    --navy-blue: #005BBB;      /* Синий Андреевского креста */
+    --dark-blue: #0A1E3F;      /* Глубокий флотский */
+    --accent-red: #D0021B;     /* Красный */
+    --gold: #D4AF37;           /* Золотой */
+    --white: #FFFFFF;
+    --gray-bg: #F1F5F9;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--gray-bg);
+    color: #1E293B;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Шапка */
+header {
+    background: var(--white);
+    color: var(--dark-blue);
+    padding: 15px 0;
+    border-bottom: 5px solid var(--navy-blue);
+    box-shadow: 0 4px 15px rgba(0, 91, 187, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--dark-blue);
+}
+
+nav a {
+    color: var(--dark-blue);
+    text-decoration: none;
+    margin-right: 25px;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+}
+
+nav a:hover {
+    color: var(--navy-blue);
+}
+
+.cart-icon {
+    cursor: pointer;
+    background: var(--navy-blue);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+}
+
+.cart-icon:hover {
+    background: var(--dark-blue);
+    transform: translateY(-2px);
+}
+
+/* Новый баннер */
+.hero-banner {
+    background: linear-gradient(rgba(10, 30, 63, 0.8), rgba(10, 30, 63, 0.8)), 
+                url('https://images.unsplash.com/photo-1507682531662-421b17ac4f83?w=1200') no-repeat center/cover;
+    color: white;
+    padding: 100px 20px;
+    text-align: center;
+    border-bottom: 6px solid var(--gold);
+}
+
+.hero-banner h1 {
+    font-size: 46px;
+    font-weight: 800;
+    margin: 0 0 15px 0;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.hero-banner p {
+    font-size: 20px;
+    color: #E2E8F0;
+    margin: 0;
+}
+
+/* СТИЛИ ДЛЯ ИСТОРИИ И ФАКТОВ */
+.navy-history-section {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+@media (max-width: 768px) {
+    .navy-history-section { grid-template-columns: 1fr; }
+}
+
+.history-card {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    border-left: 8px solid var(--navy-blue);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.history-card h2 {
+    color: var(--dark-blue);
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.history-card p {
+    line-height: 1.7;
+    color: #475569;
+}
+
+.facts-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fact-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    border-right: 6px solid var(--gold);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.fact-card h3 {
+    color: var(--navy-blue);
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.fact-card p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #475569;
+}
+
+/* Заголовок каталога */
+.section-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--dark-blue);
+    margin: 60px 0 20px 0;
+}
+
+/* Сетка товаров */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+/* Карточка товара */
+.card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #E2E8F0;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(0, 91, 187, 0.15);
+    border-color: var(--navy-blue);
+}
+
+/* Контейнер картинки */
+.image-container {
+    width: 100%;
+    height: 220px;
+    background: #E2E8F0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* КАРТИНКА (исправлено: убрана ошибка скрытия) */
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition-smooth);
+}
+
+.card:hover img {
+    transform: scale(1.06);
+}
+
+.card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-content h3 {
+    font-size: 18px;
+    color: var(--dark-blue);
+    margin: 0 0 10px 0;
+    font-weight: 700;
+}
+
+.card-content p {
+    font-size: 13px;
+    color: #64748B;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    flex-grow: 1;
+}
+
+.price {
+    color: var(--accent-red);
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background: var(--navy-blue);
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: var(--transition-smooth);
+}
+
+.btn:hover {
+    background: var(--dark-blue);
+}
+
+/* АНДРЕЕВСКИЙ ФЛАГ НА ФОНЕ */
+.andreev-bg {
+    background-color: #FFFFFF !important;
+    background-image: 
+        linear-gradient(45deg, transparent 47%, var(--navy-blue) 47%, var(--navy-blue) 53%, transparent 53%),
+        linear-gradient(-45deg, transparent 47%, var(--navy-blue) 47%, var(--navy-blue) 53%, transparent 53%) !important;
+    background-size: 100% 100%;
+    background-attachment: fixed;
+}
+
+/* Модалка */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 30, 63, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    width: 400px;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 16px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 25px;
+    background: var(--dark-blue);
+    color: white;
+    margin-top: 60px;
+    border-top: 5px solid var(--navy-blue);
+}

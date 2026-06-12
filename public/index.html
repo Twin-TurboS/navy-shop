@@ -68,5 +68,135 @@
     </footer>
 
     <script src="js/main.js"></script>
+</body><!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>re-Store ВМФ — Экипировка Военно-Морского Флота</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">⚓ ВМФ ТОРГ</div>
+            <nav>
+                <a href="/">Каталог</a>
+                <a href="/admin.html">Админ-панель</a>
+            </nav>
+            <!-- Современная SVG-корзина -->
+            <div class="cart-btn-container" onclick="toggleCart()">
+                <svg class="cart-icon-svg" viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span>Корзина</span>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный баннер -->
+    <section class="hero-banner">
+        <div class="container">
+            <h1>Экипировка ВМФ России</h1>
+            <p>Премиальное качество, проверенное штормами.</p>
+        </div>
+    </section>
+
+    <main class="container">
+        <!-- История ВМФ -->
+        <section class="navy-history-section">
+            <div class="history-card">
+                <h2>⚓ Слава русского флота</h2>
+                <p>Основанный Петром Великим в 1696 году, Военно-Морской Флот России является оплотом безопасности нашей Родины. Андреевский флаг гордо развевается над океанами, символизируя мужество, честь и верность присяге.</p>
+            </div>
+        </section>
+
+        <!-- КАТАЛОГ -->
+        <section class="catalog-section">
+            <div id="catalog" class="grid"></div>
+        </section>
+    </main>
+
+    <!-- КОРЗИНА И МНОГОШАГОВОЕ ОФОРМЛЕНИЕ -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleCart()">&times;</span>
+            
+            <!-- ШАГ 1: Список товаров -->
+            <div id="step-1" class="checkout-step active">
+                <h2>Ваша корзина</h2>
+                <div id="cart-items" style="margin-bottom: 20px;"></div>
+                <div class="cart-total">Итого: <span id="cart-total-price">0</span> ₽</div>
+                <button class="btn" style="width: 100%;" onclick="nextStep(2)">Перейти к оформлению</button>
+            </div>
+
+            <!-- ШАГ 2: Контактные данные -->
+            <div id="step-2" class="checkout-step">
+                <h2>Контакты получателя</h2>
+                <div class="input-group">
+                    <label>ФИО</label>
+                    <input type="text" id="cust-name" placeholder="Иванов Иван Иванович" required>
+                </div>
+                <div class="input-group">
+                    <label>Номер телефона</label>
+                    <input type="tel" id="cust-phone" placeholder="+7 (999) 999-99-99" required>
+                </div>
+                <div class="input-group">
+                    <label>Электронная почта</label>
+                    <input type="email" id="cust-email" placeholder="ivan@mail.ru" required>
+                </div>
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button class="btn" style="background: #e2e8f0; color: black; flex: 1;" onclick="nextStep(1)">Назад</button>
+                    <button class="btn" style="flex: 2;" onclick="validateAndGoToPayment()">К оплате</button>
+                </div>
+            </div>
+
+            <!-- ШАГ 3: Демо-оплата -->
+            <div id="step-3" class="checkout-step">
+                <h2>Онлайн-оплата (Демо)</h2>
+                <div class="card-wrapper">
+                    <div class="card-logo">⚓ ВМФ БАНК</div>
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <input type="text" id="card-num" placeholder="0000 0000 0000 0000" maxlength="19" style="background: transparent; color: white; border-color: rgba(255,255,255,0.2); font-size: 18px;">
+                    </div>
+                    <div style="display: flex; gap: 15px;">
+                        <input type="text" id="card-date" placeholder="ММ/ГГ" maxlength="5" style="background: transparent; color: white; border-color: rgba(255,255,255,0.2); flex: 1;">
+                        <input type="password" id="card-cvc" placeholder="CVC" maxlength="3" style="background: transparent; color: white; border-color: rgba(255,255,255,0.2); flex: 1;">
+                    </div>
+                </div>
+                <button class="btn" style="width: 100%;" onclick="startPaymentProcess()">Оплатить <span id="pay-sum">0</span> ₽</button>
+            </div>
+
+            <!-- ШАГ 4: Процессинг и Успех -->
+            <div id="step-4" class="checkout-step" style="text-align: center;">
+                <div id="loading-state">
+                    <h3>Проведение платежа...</h3>
+                    <p>Пожалуйста, не закрывайте страницу.</p>
+                    <div class="spinner"></div>
+                </div>
+                <div id="success-state" style="display: none;">
+                    <h2 style="color: #10b981;">⚓ Оплата успешна!</h2>
+                    <p>Заказ принят в обработку. Номер заказа: <strong id="order-id"></strong></p>
+                    <p>Чек отправлен на вашу почту.</p>
+                    <button class="btn" style="width: 100%; margin-top: 20px;" onclick="closeAndResetCart()">Отлично</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ЛАЙТБОКС ДЛЯ ПРОСМОТРА КАРТИНОК -->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="Увеличенное изображение">
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ВМФ ТОРГ. Премиальная экипировка. INC_GorKG</p>
+    </footer>
+
+    <script src="js/main.js"></script>
 </body>
 </html>

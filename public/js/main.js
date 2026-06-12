@@ -48,8 +48,54 @@ function addToCart(id, name, price) {
         cart.push({ id, name, price, quantity: 1 });
     }
     updateCart();
+    
+    // Эффект добавления: всплывающее уведомление
+    showToast(`⚓ ${name} добавлен в корзину!`);
+    
+    // Анимация прыжка иконки корзины
+    const cartBtn = document.getElementById('cart-btn');
+    cartBtn.classList.add('bounce');
+    setTimeout(() => {
+        cartBtn.classList.remove('bounce');
+    }, 400);
 }
 
+// Показ всплывающего уведомления (Toast)
+function showToast(message) {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerText = message;
+    
+    container.appendChild(toast);
+    
+    // Удаляем уведомление из DOM после окончания анимации (3 секунды)
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+// Изменение количества товара в корзине
+function changeQuantity(id, delta) {
+    const item = cart.find(i => i.id === id);
+    if (item) {
+        item.quantity += delta;
+        if (item.quantity <= 0) {
+            removeFromCart(id);
+            return;
+        }
+    }
+    updateCart();
+}
+
+// Полное удаление товара из корзины
+function removeFromCart(id) {
+    cart = cart.filter(item => item.id !== id);
+    updateCart();
+    showToast('Товар удален из корзины');
+}
+
+// Обновление корзины
 function updateCart() {
     const totalCount = cart.reduce((sum, i) => sum + i.quantity, 0);
     document.getElementById('cart-count').innerText = totalCount;
@@ -58,15 +104,33 @@ function updateCart() {
     cartItems.innerHTML = '';
     
     let total = 0;
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-        cartItems.innerHTML += `
-            <div style="display:flex; justify-content:space-between; margin-bottom:12px; font-size:14px; border-bottom: 1px solid #f5f5f7; padding-bottom: 8px;">
-                <span>${item.name} (x${item.quantity})</span>
-                <strong>${item.price * item.quantity} ₽</strong>
-            </div>
-        `;
-    });
+    
+    if (cart.length === 0) {
+        cartItems.innerHTML = `<div style="text-align:center; color:#94a3b8; padding: 20px 0;">Ваша корзина пуста</div>`;
+        document.getElementById('checkout-next-btn').style.display = 'none';
+    } else {
+        document.getElementById('checkout-next-btn').style.display = 'block';
+        cart.forEach(item => {
+            total += item.price * item.quantity;
+            cartItems.innerHTML += `
+                <div class="cart-item-row">
+                    <div class="cart-item-info">
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">${item.price * item.quantity} ₽</span>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                        <span class="qty-val">${item.quantity}</span>
+                        <button class="qty-btn" onclick="changeQuantity(${item.id}, 1)">+</button>
+                        <button class="delete-btn" onclick="removeFromCart(${item.id})" title="Удалить">
+                            &times;
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    
     document.getElementById('cart-total-price').innerText = total;
     document.getElementById('pay-sum').innerText = total;
 }
@@ -75,7 +139,7 @@ function toggleCart() {
     const modal = document.getElementById('cart-modal');
     modal.style.display = modal.style.display === 'block' ? 'none' : 'block';
     if (modal.style.display === 'block') {
-        nextStep(1); // Всегда сбрасываем на шаг 1 при открытии
+        nextStep(1);
     }
 }
 
@@ -108,11 +172,10 @@ function startPaymentProcess() {
         return;
     }
 
-    nextStep(4); // Переходим на экран загрузки
+    nextStep(4);
     document.getElementById('loading-state').style.display = 'block';
     document.getElementById('success-state').style.display = 'none';
 
-    // Симулируем задержку банка (2.5 секунды процессинга)
     setTimeout(() => {
         document.getElementById('loading-state').style.display = 'none';
         document.getElementById('success-state').style.display = 'block';
@@ -125,9 +188,23 @@ function closeAndResetCart() {
     cart = [];
     updateCart();
     toggleCart();
-    // Очищаем поля формы
     document.getElementById('cust-name').value = '';
     document.getElementById('cust-phone').value = '';
     document.getElementById('cust-email').value = '';
     document.getElementById('card-num').value = '';
+}
+
+// Политика конфиденциальности
+function openPolicyModal() {
+    document.getElementById('policy-modal').style.display = 'block';
+}
+
+function closePolicyModal() {
+    document.getElementById('policy-modal').style.display = 'none';
+}
+
+function closePolicyModalOutside(event) {
+    if (event.target.id === 'policy-modal') {
+        closePolicyModal();
+    }
 }

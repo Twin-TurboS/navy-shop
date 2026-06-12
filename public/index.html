@@ -8,15 +8,19 @@
     <link rel="icon" href="/favicon.png" type="image/png">
 </head>
 <body>
+    <!-- Контейнер для всплывающих уведомлений -->
+    <div id="toast-container" class="toast-container"></div>
+
     <header>
         <div class="container header-container">
-            <div class="logo">⚓ ВМФ ТОРГ</div>
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="cursor: pointer;">⚓ ВМФ ТОРГ</div>
             <nav>
-                <a href="/">Каталог</a>
-                <a href="/admin.html">Админ-панель</a>
+                <a href="#catalog-section">Каталог</a>
+                <a href="#about-section">О магазине</a>
+                <a href="#delivery-section">Доставка</a>
+                <a href="#contacts-section">Контакты</a>
             </nav>
-            <!-- Современная SVG-корзина -->
-            <div class="cart-btn-container" onclick="toggleCart()">
+            <div class="cart-btn-container" id="cart-btn" onclick="toggleCart()">
                 <svg class="cart-icon-svg" viewBox="0 0 24 24">
                     <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                     <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -46,8 +50,43 @@
         </section>
 
         <!-- КАТАЛОГ -->
-        <section class="catalog-section">
+        <section id="catalog-section" class="catalog-section">
+            <h2 class="section-title">Каталог товаров</h2>
             <div id="catalog" class="grid"></div>
+        </section>
+
+        <!-- О МАГАЗИНЕ -->
+        <section id="about-section" class="info-section">
+            <div class="info-card">
+                <h2>🏢 О нашем военторге</h2>
+                <p>«ВМФ ТОРГ» — специализированный магазин оригинальной экипировки и атрибутики Военно-Морского Флота. Мы сотрудничаем напрямую с официальными фабриками-поставщиками, обеспечивая строгое соответствие ГОСТу РФ. Каждое изделие проходит строгий контроль качества перед отправкой.</p>
+            </div>
+        </section>
+
+        <!-- ДОСТАВКА И ОПЛАТА -->
+        <section id="delivery-section" class="info-section">
+            <h2>📦 Доставка и оплата</h2>
+            <div class="info-grid">
+                <div class="info-subcard">
+                    <h3>🚀 Быстрая доставка</h3>
+                    <p>Отправляем заказы по всей России через СДЭК, Почту России или Boxberry в день оплаты. Средний срок доставки — от 2 до 5 рабочих дней.</p>
+                </div>
+                <div class="info-subcard">
+                    <h3>💳 Безопасная оплата</h3>
+                    <p>Оплата производится онлайн на сайте. После успешной оплаты на вашу электронную почту мгновенно приходит электронный чек.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- КОНТАКТЫ -->
+        <section id="contacts-section" class="info-section" style="margin-bottom: 50px;">
+            <div class="info-card" style="background: #0f172a; color: white;">
+                <h2>📞 Контакты</h2>
+                <p>📍 <strong>Адрес склада:</strong> г. Санкт-Петербург, Набережная Лейтенанта Шмидта, д. 17</p>
+                <p>📞 <strong>Телефон горячей линии:</strong> 8 (800) 555-35-35 (Звонок бесплатный)</p>
+                <p>✉️ <strong>Email для связи:</strong> support@vmf-torg.ru</p>
+                <p>⏰ <strong>Режим работы:</strong> Ежедневно с 09:00 до 21:00 по МСК</p>
+            </div>
         </section>
     </main>
 
@@ -61,7 +100,7 @@
                 <h2>Ваша корзина</h2>
                 <div id="cart-items" style="margin-bottom: 20px;"></div>
                 <div class="cart-total">Итого: <span id="cart-total-price">0</span> ₽</div>
-                <button class="btn" style="width: 100%;" onclick="nextStep(2)">Перейти к оформлению</button>
+                <button id="checkout-next-btn" class="btn" style="width: 100%;" onclick="nextStep(2)">Перейти к оформлению</button>
             </div>
 
             <!-- ШАГ 2: Контактные данные -->
@@ -124,10 +163,25 @@
         <img id="lightbox-img" src="" alt="Увеличенное изображение">
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО ПОЛИТИКИ -->
+    <div id="policy-modal" class="modal" onclick="closePolicyModalOutside(event)">
+        <div class="modal-content" style="max-width: 600px; text-align: left;">
+            <span class="close" onclick="closePolicyModal()">&times;</span>
+            <h2 style="margin-bottom: 15px;">Политика конфиденциальности</h2>
+            <div style="max-height: 350px; overflow-y: auto; font-size: 13px; line-height: 1.6; color: #475569; padding-right: 10px;">
+                <p><strong>1. Общие положения</strong><br>Настоящая политика обработки персональных данных составлена в соответствии с требованиями Федерального закона от 27.07.2006. №152-ФЗ «О персональных данных» и определяет порядок обработки персональных данных и меры по обеспечению безопасности персональных данных интернет-магазина «ВМФ ТОРГ».</p>
+                <p style="margin-top: 10px;"><strong>2. Какие данные мы собираем</strong><br>Мы собираем только те данные, которые необходимы для оформления и доставки заказа: ФИО, номер телефона, адрес электронной почты.</p>
+                <p style="margin-top: 10px;"><strong>3. Цели обработки</strong><br>Персональные данные пользователя используются исключительно для отправки заказов, отправки чеков об оплате и связи менеджера с клиентом.</p>
+                <p style="margin-top: 10px;"><strong>4. Безопасность</strong><br>Мы принимаем все необходимые организационные и технические меры для защиты персональной информации пользователей от неправомерного или случайного доступа.</p>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2026 ВМФ ТОРГ. Премиальная экипировка. INC_GorKG</p>
+        <p><span class="policy-link" onclick="openPolicyModal()">Политика обработки персональных данных</span></p>
     </footer>
 
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=3"></script>
 </body>
 </html>

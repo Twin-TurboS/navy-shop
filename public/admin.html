@@ -5,46 +5,49 @@
     <title>Админ-панель ВМФ</title>
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Делаем форму полупрозрачной и стильной на фоне флага */
         form { 
-            background: rgba(255, 255, 255, 0.92); 
+            background: rgba(255, 255, 255, 0.95); 
             padding: 40px; 
-            border-radius: 20px; 
+            border-radius: 24px; 
             max-width: 500px; 
             margin: 50px auto; 
-            box-shadow: 0 15px 35px rgba(0, 32, 91, 0.3);
-            border: 3px solid var(--navy-blue);
-            backdrop-filter: blur(5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0,0,0,0.08);
+            backdrop-filter: blur(10px);
         }
         input, select, textarea { 
             width: 100%; 
-            padding: 12px; 
+            padding: 14px; 
             margin: 12px 0; 
             box-sizing: border-box;
-            border: 2px solid #CBD5E1;
-            border-radius: 8px;
-            font-family: 'Montserrat', sans-serif;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
             font-size: 14px;
         }
         input:focus, select:focus, textarea:focus {
-            border-color: var(--navy-blue);
+            border-color: var(--black-premium);
             outline: none;
         }
         form h2 {
-            color: var(--dark-blue);
             font-weight: 800;
             text-align: center;
             margin-top: 0;
             font-size: 24px;
+            letter-spacing: -0.5px;
         }
     </style>
 </head>
-<!-- Добавили класс andreev-bg для заднего фона -->
 <body class="andreev-bg">
+    <!-- Идентичная шапка, навигация больше не пропадает! -->
     <header>
         <div class="container header-container">
             <div class="logo">⚓ ВМФ ТОРГ (АДМИН)</div>
-            <nav><a href="/">На главную</a></nav>
+            <nav>
+                <a href="/">Каталог</a>
+                <a href="/admin.html">Админ-панель</a>
+            </nav>
+            <div style="width: 100px;"></div> <!-- Заглушка для симметрии -->
         </div>
     </header>
 
@@ -58,9 +61,9 @@
                 <option value="accessories">Аксессуары</option>
             </select>
             <input type="number" id="price" placeholder="Цена (руб.)" required>
-            <input type="text" id="image" placeholder="Путь к картинке (например: /images/beret.jpg)">
+            <input type="text" id="image" placeholder="Путь к картинке (например: /images/beret.png)">
             <textarea id="description" placeholder="Описание товара"></textarea>
-            <button type="submit" class="btn">Добавить на склад</button>
+            <button type="submit" class="btn" style="width: 100%;">Добавить на склад</button>
         </form>
     </main>
 
@@ -71,7 +74,7 @@
                 name: document.getElementById('name').value,
                 category: document.getElementById('category').value,
                 price: document.getElementById('price').value,
-                image: document.getElementById('image').value || '/images/telyashka_winter.jpg',
+                image: document.getElementById('image').value || '/images/telnyashka_winter.png',
                 description: document.getElementById('description').value
             };
 

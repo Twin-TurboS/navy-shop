@@ -157,9 +157,9 @@ function applyPromo() {
         msg.innerText = 'Промокод PETR1 применен! Скидка 10%';
         msg.style.color = '#10b981';
         showToast('Активирована скидка 10%!');
-    } else if (code === 'ILARIAmylove') {
+    } else if (code === 'ILARIAMYLOVE') {
         discountPercent = 20;
-        msg.innerText = 'Промокод ADMIRAL применен! Скидка 20%';
+        msg.innerText = 'Промокод ILARIAMYLOVE применен! Скидка 20%';
         msg.style.color = '#10b981';
         showToast('Активирована скидка 20%!');
     } else {

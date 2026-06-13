@@ -577,3 +577,205 @@ nav a:hover {
     50% { transform: scale(1.2); }
     100% { transform: scale(1); }
 }
+/* --- ПРОМОКОДЫ --- */
+.promo-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    background: #f8fafc;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px dashed #cbd5e1;
+}
+
+.promo-container input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.btn-secondary {
+    background: #475569 !important;
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+}
+
+.promo-message {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: #94a3b8;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* --- ТРЕКЕР ЗАКАЗОВ --- */
+.tracker-card {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+    color: white !important;
+    border: none !important;
+}
+
+.tracker-card h2 {
+    color: white !important;
+}
+
+.tracker-input-group {
+    display: flex;
+    gap: 10px;
+    max-width: 500px;
+    margin: 20px 0;
+}
+
+.tracker-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-size: 16px;
+}
+
+.tracker-visual {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+}
+
+.track-line-container {
+    position: relative;
+    margin-top: 40px;
+    padding-bottom: 20px;
+}
+
+.track-line {
+    position: relative;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.track-progress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background: #38bdf8;
+    border-radius: 3px;
+    transition: width 1s ease-in-out;
+}
+
+.track-ship {
+    position: absolute;
+    top: -18px;
+    left: 0%;
+    font-size: 24px;
+    transform: translateX(-50%);
+    transition: left 1s ease-in-out;
+}
+
+.track-points {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.point {
+    font-size: 12px;
+    color: #64748b;
+    position: relative;
+}
+
+.point.active {
+    color: #38bdf8;
+    font-weight: bold;
+}
+
+/* --- ОТЗЫВЫ --- */
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.review-card {
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.review-stars {
+    color: #fbbf24;
+}
+
+.review-text {
+    font-style: italic;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.add-review-form {
+    background: #f1f5f9;
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.add-review-form h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+.review-inputs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.review-inputs input, .review-inputs select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+}
+
+.review-inputs input {
+    flex: 2;
+}
+
+.review-inputs select {
+    flex: 1;
+}
+
+.add-review-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 15px;
+    resize: vertical;
+    font-family: inherit;
+}
